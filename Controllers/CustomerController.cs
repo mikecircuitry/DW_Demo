@@ -20,7 +20,7 @@ namespace DW_Demo.Controllers
             Addresses = new List<Address>{
                 new Address{
                     Id = 1,
-                    StreetAddress = "123 test way",
+                    StreetAddress = "123 test way drive",
                     City = "Pork Belly",
                     CustomerID = 1,
                     Name = "Default Address",
