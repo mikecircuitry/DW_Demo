@@ -11,15 +11,11 @@ namespace DW_Demo.Controllers
     [Route("api/[controller]")]
     public class ProductController : Controller
     {
-        private List<Product> _products;
         private ProductContext _productsContext;
 
         public ProductController(ProductContext productContext)
         {
             _productsContext = productContext;
-            _products = new List<Product>{
-                new Product{Id = 1, Name = "Bonsai Lamp", Price = 149.99, IsActive = true, Description = "Bonsia plant bluetooth speaker with charing station at base"}
-            };
         }
 
         [HttpGet]
