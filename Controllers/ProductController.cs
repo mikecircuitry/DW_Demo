@@ -1,6 +1,9 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using DW_Demo.Models;
+using DW_Demo.Models.Context;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace DW_Demo.Controllers
 {
@@ -9,18 +12,21 @@ namespace DW_Demo.Controllers
     public class ProductController : Controller
     {
         private List<Product> _products;
+        private ProductContext _productsContext;
 
-        public ProductController()
+        public ProductController(ProductContext productContext)
         {
+            _productsContext = productContext;
             _products = new List<Product>{
                 new Product{Id = 1, Name = "Bonsai Lamp", Price = 149.99, IsActive = true, Description = "Bonsia plant bluetooth speaker with charing station at base"}
             };
         }
 
         [HttpGet]
-        public IActionResult GetProducts()
+        public async Task<IActionResult> GetProductsAsync()
         {
-            return Ok(_products);
+            var products = await _productsContext.Products.ToListAsync();
+            return Ok(products);
         }
 
     }
