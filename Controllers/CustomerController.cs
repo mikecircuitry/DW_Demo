@@ -1,7 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using DW_Demo.Models;
+using DW_Demo.Models.Context;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace DW_Demo.Controllers
 {
@@ -9,32 +13,27 @@ namespace DW_Demo.Controllers
     [Route("api/[controller]")]
     public class CustomerController : Controller
     {
-        
-        private Customer _sampleCustomer;
-        public CustomerController() => _sampleCustomer = new Customer
+
+        private CustomerContext _customerDb;
+
+        public CustomerController(CustomerContext customerContext)
         {
-            Id = 1,
-            Name = "Johnny Test",
-            Email = "JohnnyTest@testlabs.com",
-            CreateDate = DateTime.Now,
-            Addresses = new List<Address>{
-                new Address{
-                    Id = 1,
-                    StreetAddress = "123 test way drive",
-                    City = "Pork Belly",
-                    CustomerID = 1,
-                    Name = "Default Address",
-                    CreateDate = DateTime.Now,
-                    State = "NY",
-                    Zip = "11111"
-                }
-            }
-        };
+            _customerDb = customerContext;
+        }
 
         [HttpGet]
         public IActionResult GetCustomers()
         {
-            return Ok(_sampleCustomer);
+            var customers = _customerDb.Customers.ToList();
+            return Ok(customers);
+        }
+
+        [HttpGet("{id}/address")]
+        public async Task<IActionResult> GetCustmerAddress(int id)
+        {
+            var addresses = await _customerDb.Addresses.Where(x => x.CustomerID == id).ToListAsync();
+
+            return Ok(addresses);
         }
     }
 }

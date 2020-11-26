@@ -6,6 +6,7 @@ namespace DW_Demo.Models.Context
     public class CustomerContext : DbContext
     {
         public DbSet<Customer> Customers { get; set; }
+        public DbSet<Address> Addresses { get; set; }
         public CustomerContext(DbContextOptions<CustomerContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -17,11 +18,11 @@ namespace DW_Demo.Models.Context
             );
 
             modelBuilder.Entity<Address>().HasData(
-                new Address{Id = 1, CustomerID = 1, Name = "Home", StreetAddress = "123 Test Way Drive", City = "Pork Belly", State = "NY", Zip = "11111", CreateDate = DateTime.Now  },
-                new Address{Id = 2, CustomerID = 2, Name = "Home", StreetAddress = "123 Test Way Drive", City = "Pork Belly", State = "NY", Zip = "11111", CreateDate = DateTime.Now  },
-                new Address{Id = 3, CustomerID = 2, Name = "School", StreetAddress = "314 University Way", City = "Pork Belly", State = "NY", Zip = "22222", CreateDate = DateTime.Now  },
-                new Address{Id = 4, CustomerID = 3, Name = "Secret Lab", StreetAddress = "360 redacted street", City = "Pork Belly", State = "NY", Zip = "33333", CreateDate = DateTime.Now  },
-                new Address{Id = 5, CustomerID = 3, Name = "Home", StreetAddress = "123 Test Way Drive", City = "Pork Belly", State = "NY", Zip = "11111", CreateDate = DateTime.Now  }
+                new Address { Id = 1, CustomerID = 1, Name = "Home", StreetAddress = "123 Test Way Drive", City = "Pork Belly", State = "NY", Zip = "11111", CreateDate = DateTime.Now },
+                new Address { Id = 2, CustomerID = 2, Name = "Home", StreetAddress = "123 Test Way Drive", City = "Pork Belly", State = "NY", Zip = "11111", CreateDate = DateTime.Now },
+                new Address { Id = 3, CustomerID = 2, Name = "School", StreetAddress = "314 University Way", City = "Pork Belly", State = "NY", Zip = "22222", CreateDate = DateTime.Now },
+                new Address { Id = 4, CustomerID = 3, Name = "Secret Lab", StreetAddress = "360 redacted street", City = "Pork Belly", State = "NY", Zip = "33333", CreateDate = DateTime.Now },
+                new Address { Id = 5, CustomerID = 3, Name = "Home", StreetAddress = "123 Test Way Drive", City = "Pork Belly", State = "NY", Zip = "11111", CreateDate = DateTime.Now }
              );
         }
     }
